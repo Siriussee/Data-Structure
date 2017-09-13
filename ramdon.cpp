@@ -3,6 +3,8 @@
 #include <cstdio>
 #include <fstream>
 using namespace std;
+//genarate some ramdon int from 0-100
+//will be saved in ramdon.txt
 int main()
 {
     srand(666);
