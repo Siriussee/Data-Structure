@@ -11,53 +11,36 @@ int main()
     int n;
     cin >> n;
     string waste;
-    getline(cin,waste);
+    getline(cin, waste);
+    stack<double> s;
     for (int i = 0; i < n; ++i)
     {
-        char ch;
-        stack<int> s;
-        while ((ch = getchar()) != '\n')
+        //char ch;
+        //while (!isspace(ch = getchar()))        //RE????
+        string str;
+        getline(cin, str);
+        for (int i = 0; i < str.size(); ++i)
         {
-            if (isalnum(ch))
+            if (isalpha(str[i]))
+                s.push(str[i] + 1 - 'a');
+            else
             {
-                int real = ch + 1 - 'a';
-                s.push(real);
-            }
-            if (ch == '+')
-            {
+                double b = s.top(); //mind the order of a&b
+                s.pop();
                 double a = s.top();
                 s.pop();
-                double b = s.top();
-                s.pop();
-                s.push(a + b);
-            }
-            if (ch == '-')
-            {
-                double a = s.top();
-                s.pop();
-                double b = s.top();
-                s.pop();
-                s.push(a - b);
-            }
-            if (ch == '*')
-            {
-                double a = s.top();
-                s.pop();
-                double b = s.top();
-                s.pop();
-                s.push(a * b);
-            }
-            if (ch == '/')
-            {
-                double a = s.top();
-                s.pop();
-                double b = s.top();
-                s.pop();
-                s.push(a / b);
+                if (str[i] == '+')
+                    s.push(a + b);
+                if (str[i] == '-')
+                    s.push(a - b);
+                if (str[i] == '*')
+                    s.push(a * b);
+                if (str[i] == '/')
+                    s.push(a / b);
             }
         }
-        double ans = s.top();
-        cout << fixed<< setprecision(2) << ans << endl;
+        cout << setprecision(2) << fixed << s.top() << endl;
+        s.pop();
     }
     return 0;
 }
