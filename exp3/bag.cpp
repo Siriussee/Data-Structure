@@ -38,12 +38,11 @@ int main()
     }
 
     sort(vec.begin(), vec.end());   //sort to reduce further discussion
-
+                                    //actually it will not matter beacause the algo will travel all possible occasion
     cout << "the possible solutions are listed:" << endl;
     
     for (int i = 0; i < t; ++i)
     {
-        //int count = i;
         stack<int> c_s;     //to store the index
         stack<int> s;       //to store weight of item
         
@@ -52,7 +51,6 @@ int main()
             s.push(vec[j]);
             c_s.push(j);
             j++;
-            //j = count;
             if (is_full(s, c) == 1) //if overweighted
             {
                 s.pop();                //pop 2 from weight stack
@@ -63,10 +61,10 @@ int main()
                 c_s.pop();
                 continue;
             }
-            if(is_full(s,c) == 0)
+            if(is_full(s,c) == 0)   //if weight meet
             {
                 stack<int> s_copy = s;
-                while(!s_copy.empty())
+                while(!s_copy.empty())  //outout
                 {
 
                     cout << s_copy.top() << " ";
@@ -74,7 +72,8 @@ int main()
                 }
                 cout << endl;
                 
-                s.pop();               //almost the same to the former occasion
+                s.pop();                //check other possible ans
+                                        //almost the same to the former occasion
                 s.pop();
                 c_s.pop();
                 j = c_s.top() + 1;
