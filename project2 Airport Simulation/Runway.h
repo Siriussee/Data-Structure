@@ -11,14 +11,14 @@ enum Runway_activity
 };
 class Runway
 {
-  public:
+public:
 	Runway(int limit);
 	Error_code can_land(const Plane &current);
 	Error_code can_depart(const Plane &current);
 	Runway_activity activity(int time, Plane &moving);
 	void shut_down(int time) const;
 
-  private:
+private:
 	Extended_queue landingQ;
 	Extended_queue takeoffQ;
 	int queue_limit;
@@ -33,6 +33,12 @@ class Runway
 	int land_wait;
 	int takeoff_wait;
 	int idle_time;
+
+	//----------------
+	Extended_queue crashQ;
+	int num_crashed;
+	int num_insert;
+	//-----------------
 };
 #endif
 #pragma once

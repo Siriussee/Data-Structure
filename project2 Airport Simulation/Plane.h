@@ -7,9 +7,12 @@ public:
 	Plane();
 	Plane(int flt, int time, Plane_status status);
 	void refuse() const;
-	void land(int time) const;
+	bool land(int time) const;
 	void fly(int time) const;
 	int started() const;
+
+	int get_fuels() const;//p5
+	void use_fuels();
 private:
 	int flt_num;
 	int clock_start;

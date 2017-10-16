@@ -1,6 +1,7 @@
 #include "Runway.h"
 #include "Plane.h"
 #include <iostream>
+#include <fstream> //file handling
 using namespace std;
 
 Runway::Runway(int limit)
@@ -20,13 +21,23 @@ Runway::Runway(int limit)
 	takeoff_wait = 0;
 	idle_time = 0;
 
-	num_land_refused = num_takeoff_refused = 0;
+	num_land_refused = num_takeoff_refused = num_crashed = num_insert = 0;
 }
 Error_code Runway::can_land(const Plane &current)
 {
 	Error_code result;
 	if (landingQ.size() < queue_limit)
-		result = landingQ.append(current);
+	{
+		//-----------------------------------------
+		if (landingQ.size() > current.get_fuels())
+		{
+			result = landingQ.push_front(current);
+			num_insert++;
+		}
+		//-----------------------------------------
+		else
+			result = landingQ.append(current);
+	}
 	else
 		result = fail;
 	num_land_requests++;
@@ -55,15 +66,25 @@ Runway_activity Runway::activity(int time, Plane &moving)
 	Runway_activity in_progress;
 	if (!landingQ.empty())
 	{
+		for (int i = landingQ.get_head(); i < landingQ.get_rear(); ++i)
+		{
+			landingQ[i].use_fuels();
+		}
 		landingQ.retrieve(moving);
+		ofstream watcher;
+		watcher.open("watch.txt", ios::app);
+		watcher << moving.get_fuels() << " ";
+		if (moving.get_fuels() < 0)
+		{
+			
+			num_crashed++;
+			crashQ.append(moving);
+		}
+		//landingQ.retrieve(moving); //moving = landingQ.top();
 		land_wait += time - moving.started();
 		num_landings++;
 		in_progress = land;
-		landingQ.serve(); 	//这个是干什么用的 
-							//A:to pop a plane in landing_queue to simulate a landed plane
-		//-------------------------
-		//-------------------------
-		
+		landingQ.serve(); //A:to pop a plane in landing_queue to simulate a landed plane
 	}
 	else if (!takeoffQ.empty())
 	{
@@ -101,6 +122,10 @@ void Runway::shut_down(int time) const
 		 << num_takeoff_refused << endl
 		 << "Total number of planes that landed "
 		 << num_landings << endl
+		 << "Total number of planes that landed in advance "
+		 << num_insert << endl
+		 << "Total number of planes that crashed "
+		 << num_crashed << endl
 		 << "Total number of planes that took off "
 		 << num_takeoffs << endl
 		 << "Total number of planes that left in landing queue "

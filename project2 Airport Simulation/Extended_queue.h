@@ -22,6 +22,10 @@ public:
 	
 	//--------------------------------------------
 	Error_code push_front(const Plane &current);
+	Plane top();	//abandon
+	Plane &operator[](int i);
+	int get_head();
+	int get_rear();
 	//--------------------------------------------
 private:
 	int size_num;

@@ -19,7 +19,7 @@ int main()
 	double arrival_rate, departure_rate;
 	Random variable;
 	vector<int> bp; //debug-break-point
-	
+
 	//-------choose static data mode or not-----------------------
 	bool is_static_mode = false;
 	char ch;
@@ -31,7 +31,7 @@ int main()
 	if (is_static_mode)
 	{
 		end_time = 1000;
-		queue_limit = 5;
+		queue_limit = 10;
 		arrival_rate = departure_rate = 0.48;
 	}
 	else
@@ -107,6 +107,7 @@ int main()
 			if (small_airport.can_depart(current_plane) != success)
 				current_plane.refuse();
 		}
+
 		Plane moving_plane;
 		switch (small_airport.activity(current_time, moving_plane))
 		{
@@ -119,7 +120,13 @@ int main()
 		case idle:
 			run_idle(current_time);
 			break;
+		//-------crash situation----------
+		/*case crash:
+			moving_plane.crash(current_time);
+			break;*/
+		//--------------------------------
 		}
+
 		//------debug mod----------------------------------------------
 		if (bp.end() != find(bp.begin(), bp.end(), current_time) || is_debug_mode)
 		{

@@ -23,7 +23,7 @@ Plane::Plane(int flt, int time, Plane_status status)
 	{
 		cout << "land." << endl;
 		srand(666);
-		fuels = rand() % 4;
+		fuels = rand() % 3;
 	}
 	else
 	{
@@ -40,22 +40,23 @@ void Plane::refuse() const
 	else
 		cout << "told to try to take off again later" << endl;
 }
-void Plane::land(int time) const
+bool Plane::land(int time) const
 {
 	int wait = time - clock_start;
-
-	//-----------------------------------------------------
 	if (wait <= fuels)
 	{
-		cout << time << ":Plane number " << flt_num << " lander after "
+		cout << time << ":Plane number " << flt_num << " landed after "
 			 << wait << " time unit" << ((wait == 1) ? "" : "s")
 			 << " in the landing queue." << endl;
+		return true;
 	}
 	else
 	{
-		//
+		cout << time << ":Plane number " << flt_num << " crashed after "
+			 << wait << " time unit" << ((wait == 1) ? "" : "s")
+			 << " in the landing queue." << endl;
+		return false;
 	}
-	//-----------------------------------------------------
 }
 void Plane::fly(int time) const
 {
@@ -67,4 +68,14 @@ void Plane::fly(int time) const
 int Plane::started() const
 {
 	return clock_start;
+}
+//-------------------------------------
+int Plane::get_fuels() const
+{
+	return fuels;
+}
+
+void Plane::use_fuels()
+{
+	fuels--;
 }

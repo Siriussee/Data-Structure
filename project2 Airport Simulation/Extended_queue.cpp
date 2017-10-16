@@ -45,11 +45,30 @@ int Extended_queue::size() const
 //-----------------------------------------------------------
 Error_code Extended_queue::push_front(const Plane &current)
 {
-	for (int i = size_num; i >= 0; --i)
+	for (int i = rear; i >= head; --i)
 	{
 		store[i + 1] = store[i];
 	}
-	store[0] = current;
+	store[head] = current;
+	rear++;
+	size_num++;
 	return success;
+}
+Plane Extended_queue::top()
+{
+	return store[head];
+}
+
+Plane &Extended_queue::operator[](int i)
+{
+	return store[i];
+}
+int Extended_queue::get_head()
+{
+	return head;
+}
+int Extended_queue::get_rear()
+{
+	return rear;
 }
 //-----------------------------------------------------------
