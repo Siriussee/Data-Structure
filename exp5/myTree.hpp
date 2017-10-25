@@ -19,6 +19,7 @@ class myTree
   private:
     Node *head;
     static int count;
+
   public:
     myTree()
     {
@@ -33,7 +34,7 @@ class myTree
         }
         Node *newNode;
         newNode = new Node(d);
-        if(head == NULL)
+        if (head == NULL)
         {
             head = newNode;
             return;
@@ -47,85 +48,51 @@ class myTree
                 break;
             }
             if (d >= curr->data && curr->left != NULL)
-            {
                 curr = curr->left;
-            }
+            
             if (d < curr->data && curr->right == NULL)
             {
                 curr->right = newNode;
                 break;
             }
             if (d < curr->data && curr->right != NULL)
-            {
                 curr = curr->right;
-            }
         }
     }
-    void print()
+    void PrintNodeByLevel(Node *n, int level)
     {
-        PrintNodeByLevel(head);
-        return;
+        if (n == NULL) 
+            return;
+        PrintNodeByLevel(n->left, level + 1);
+        for (int i = 0; i < level; i++) 
+            cout << "   ";
+        cout << n->data << endl;
+        PrintNodeByLevel(n->right, level + 1);
     }
 
-    void PrintNodeByLevel(Node *root)  
-    {  
-        int parentSize = 1, childSize = 0; 
-        int space = 8; 
-        Node * temp;  
-        queue<Node *> q;  
-        q.push(root);  
-        cout << "                  ";
-        do  
-        {  
-            //print current line
-            temp = q.front();         
-            cout << temp->data << "    ";  
-            q.pop();  
-      
-            if (temp->left != NULL)   
-            {  
-                q.push(temp->left);  
-                childSize ++;  
-            }  
-            if (temp->right != NULL)   
-            {  
-                q.push(temp->right);  
-                childSize ++;  
-            }  
-            parentSize--; 
-            // if current is empty, to next line
-            
-            if (parentSize == 0)   
-            {  
-                parentSize = childSize;  
-                childSize = 0;  
-                cout << endl;
-                for(int i = space; i > 0; --i)
-                {
-                    cout << "  ";
-                }
-                space--;  
-            }  
-      
-        } while (!q.empty());  
-    }  
+    void print()
+    {
+        PrintNodeByLevel(head, 0);
+        return;
+    }
+   
     void reverseTree()
     {
         reverse(head);
     }
-    void reverse(Node* root)
+    void reverse(Node *root)
     {
-        if(root->left != NULL)
+        if (root->left != NULL)
             reverse(root->left);
-        if(root->right != NULL)
+        if (root->right != NULL)
             reverse(root->right);
         reverseANode(root);
     }
-    void reverseANode(Node * n)
+    void reverseANode(Node *n)
     {
-        if(n->left != NULL || n->right != NULL)
+        if (n->left != NULL || n->right != NULL)
         {
-            Node* temp =  n->left;
+            Node *temp = n->left;
             n->left = n->right;
             n->right = temp;
         }
