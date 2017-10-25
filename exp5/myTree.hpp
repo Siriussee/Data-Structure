@@ -49,7 +49,7 @@ class myTree
             }
             if (d >= curr->data && curr->left != NULL)
                 curr = curr->left;
-            
+
             if (d < curr->data && curr->right == NULL)
             {
                 curr->right = newNode;
@@ -61,10 +61,10 @@ class myTree
     }
     void PrintNodeByLevel(Node *n, int level)
     {
-        if (n == NULL) 
+        if (n == NULL)
             return;
         PrintNodeByLevel(n->left, level + 1);
-        for (int i = 0; i < level; i++) 
+        for (int i = 0; i < level; i++)
             cout << "   ";
         cout << n->data << endl;
         PrintNodeByLevel(n->right, level + 1);
@@ -72,12 +72,16 @@ class myTree
 
     void print()
     {
+        if (head == NULL)
+            return;
         PrintNodeByLevel(head, 0);
         return;
     }
-   
+
     void reverseTree()
     {
+        if (head == NULL)
+            return;
         reverse(head);
     }
     void reverse(Node *root)
