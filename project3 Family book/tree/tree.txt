@@ -1,0 +1,18 @@
+17
+16 yalipapa 1
+0 yalimama 0
+3 duck 1
+1 duckwifi 0
+2 duckchild 1
+7 feymann 1
+4 feymannwifi 0
+5 feychild 1
+6 feymanncutechild 1
+12 feyy 1
+8 feyywifi 0
+9 littlechild 1
+10 verycutefey 1
+11 socutefey 1
+15 xidangdie 1
+13 xidangma 0
+14 erzi 1
