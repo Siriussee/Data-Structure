@@ -1,6 +1,7 @@
 #include <iostream>
 #include <algorithm>
 #include <vector>
+#include <queue>
 #include <sstream>
 #include <cstdlib>
 
@@ -61,8 +62,8 @@ int main()
     }
 
     string str;
-    getline(cin,str); //GET [ENTER]
-    getline(cin,str);
+    getline(cin, str); //GET [ENTER]
+    getline(cin, str);
     stringstream ss;
     ss << str;
 
@@ -83,13 +84,12 @@ int main()
         }
     }
     sort(v.begin(), v.end(), cmp);
-
+    /*
     for (auto it = v.begin(); it != v.end(); ++it)
     {
         cout << char((*it)->ch + 'A') << " " << (*it)->weight << endl;
     }
-
-    
+*/
     while (v.size() != 1)
     {
         Node *left = v.back();
@@ -102,15 +102,46 @@ int main()
 
     dfs(v.back());
 
+    queue<Node *> q;
+    q.push(v.back());
+    v.pop_back();
+    while (!q.empty())
+    {
+        if (q.front()->left != NULL)
+            q.push(q.front()->left);
+        if (q.front()->right != NULL)
+            q.push(q.front()->right);
+        v.push_back(q.front());
+        q.pop();
+    }
+
+    //code for v1
+    sort(v.begin(), v.end(), cmp);
+
+    for (auto it = v.begin(); it != v.end(); ++it)
+    {
+        if (0 <= (*it)->ch && (*it)->ch <= 25)
+            cout << char((*it)->ch + 'A') << " " << (*it)->weight << " "
+                 << (*it)->code << endl;
+    }
+/*
+    //code for v3
     ss << str;
 
     char ch;
     int sum = 0;
-    while(ss >> ch)
+    while (ss >> ch)
     {
-        sum += code_length(v.back(),ch);
+        for (auto it = v.begin(); it != v.end(); ++it)
+        {
+            if (char((*it)->ch + 'A') == ch)
+            {
+                sum += (*it)->code.length();
+            }
+        }
     }
-
-    system("pause");
+    cout << sum << endl;
+*/
+    //system("pause");
     return 0;
 }
