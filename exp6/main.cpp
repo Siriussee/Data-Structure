@@ -11,7 +11,7 @@ int main()
     cout << "enter data" << endl;
     Mgraph m;
     Lgraph l(m);
-    bool isMatrixGraph;
+    bool isMatrixGraph = true;
     cout << "[M]atrix graph" << endl
          << "[L]ist graph" << endl
          << "[B]FS" << endl
@@ -32,8 +32,8 @@ int main()
             cout << "Initializing a List Graph..." << endl;
         }
         if (command == "B")
-            cout << "BFS:" << endl;
         {
+            cout << "BFS:" << endl;
             if (isMatrixGraph)
                 m.bfs();
             else
@@ -41,19 +41,19 @@ int main()
         }
         if (command == "D")
         {
-            cout << "BFS:" << endl;
+            cout << "DFS:" << endl;
             if (isMatrixGraph)
                 m.dfs();
-
-            //        l.dfs();
+            else
+                l.dfs();
         }
         if (command == "S")
         {
             cout << "Shortest route from 1 to other:" << endl;
             if (isMatrixGraph)
                 m.sr();
-
-            //        l.sr();
+            else
+                l.sr();
         }
         if (command == "E")
             break;

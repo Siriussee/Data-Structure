@@ -2,7 +2,7 @@
 #include <cstring>
 #include <string>
 #include <vector>
-
+#include <list>
 using namespace std;
 
 class Mgraph
@@ -110,27 +110,13 @@ class Mgraph
         cout << endl;
     }
 };
-
-struct ArcNode
-{
-    int adjvex;    //该弧所指向的顶点的位置
-    ArcNode *next; //指向下一条弧的指针
-};
-
-struct VNode
-{
-    char vertex;       //顶点信息
-    ArcNode *firstarc; //指向第一条依附该顶点的弧的指针
-};
-
 class Lgraph
 {
   public:
     int _point;
     int _path;
+    list<int> neighbors[1001];
     bool visited[1001];
-    VNode adjList[20];
-
     void visit(int p)
     {
         cout << p << " ";
@@ -140,141 +126,86 @@ class Lgraph
         _point = m._point;
         _path = m._path;
         for (int i = 1; i <= _point; ++i)
-            for (int j = i; j <= _point; ++j)
-                if (m.path[i][j] == true)
+        {
+            for (int j = 1; j <= _point; ++j)
+            {
+                if (m.path[i][j])
                 {
-                    ArcNode* temp = new ArcNode;
-                    temp->adjvex = j;
-                    temp->next = adjList[i].firstarc;
-                    adjList[j].firstarc = temp;
+                    neighbors[i].push_back(j);
                 }
+            }
+        }
     }
     void bfs()
     {
         memset(visited, false, sizeof(visited));
+        visited[1] = true;
         queue<int> q;
-
-        for (int i = 0; i < _point; i++)
+        q.push(1);
+        while (!q.empty())
         {
-            if (!visited[i]) //如果没有访问过
+            int temp = q.front();
+            visit(temp);
+            //for every node
+            for (int i = 1; i <= _point; ++i)
             {
-                visited[i] = true;
-                q.push(i); //访问过的入队列
-                cout << adjList[i].vertex << " ";
-
-                while (!q.empty()) //队列不为空时
+                //if is connect to this node and never visit
+                for (auto it = neighbors[temp].begin(); it != neighbors[temp].end(); ++it)
                 {
-                    int x = q.front();
-                    q.pop(); //先取出队首第一个元素，然后将第一个元素删除
-                    ArcNode *p = adjList[x].firstarc;
-                    while (p) //访问未被访问过的邻接顶点
-                    {
-                        if (!visited[p->adjvex])
-                        {
-                            visited[p->adjvex] = true;
-                            cout << adjList[p->adjvex].vertex << " ";
-                            q.push(p->adjvex);
-                        }
-
-                        p = p->next;
+                    if (*it == i && visited[i] != true)
+                    { //add to to-visit list
+                        visited[i] = true;
+                        q.push(i);
                     }
                 }
             }
+            q.pop();
         }
+        cout << endl;
     }
-    void dfs()
-    {
-    }
-    void sr()
-    {
-    }
-};
-
-/*
-/*
-struct Arc
-{
-    int adjvex;
-    Arc *next;
-    Arc(int x) { adjvex = k; }
-};
-
-struct Node
-{
-    int data;
-    Node *next;
-    Node(int d)(data = d;)
-};
-
-class Lgraph
-{
-  public:
-    int _point;
-    int _path;
-
-    Node *head[1001];
-
-    //bool path[1001][1001];
-    bool visited[1001];
-
-    void visit(int p)
-    {
-        cout << p << " ";
-    }
-
-    Lgraph(Mgraph m)
-    {
-        memset(head, NULL, sizeof(head));
-        _point = m._point;
-        _path = m._path;
-        /*
-        Arc *temp;
-        for (int i = 1; i <= _point; ++i)
-            for (int j = 1; j <= _point; ++j)
-            {
-                if (m.path[i][j] == true)
-                {
-                    temp = new Arc(j);
-                    temp->next = head[i].first;
-                    head[i].first = temp;
-                }
-            }
-
-        for (int i = 1; i <= _point; ++i)
-        {
-            Node *head = new Node(i);
-            Node *curr = head;
-            for (int j = 1; j <= _point; ++j)
-            {
-                if (m.path[i][j] == true)
-                {
-                    Node *newNode = new Node(j);
-                    cruu->next = newNode;
-                    curr = newNode;
-                }
-            }
-        }
-    }
-
     void dfs()
     {
         memset(visited, false, sizeof(visited));
         visited[1] = true;
-        dfs_do(head[0]);
+        dfs_do(1);
         cout << endl;
     }
-    void dfs_do(Node *temp)
+    void dfs_do(int temp)
     {
-        visit(temp->data);
+        visit(temp);
         //for every node
         for (int i = 1; i <= _point; ++i)
         {
             //if is connect to this node and never visit
-            if (temp->next != NULL && visited[temp->next->data] == false)
-            {
-                visited[temp->next->data] = true; //must before dfs_do(next)
-                dfs_do(temp->next);
-            }
+            for (auto it = neighbors[temp].begin(); it != neighbors[temp].end(); ++it)
+                if (*it == i && visited[i] != true)
+                {
+                    visited[i] = true; //must before dfs_do(next)
+                    dfs_do(i);
+                }
         }
-    };
-    */
+    }
+    void sr()
+    {
+        int dis[101];
+        for (int i = 0; i < 100; ++i)
+            dis[i] = 65535;
+        dis[1] = 0;
+
+        for (int i = 2; i <= _point; ++i)
+            for (auto it = neighbors[1].begin(); it != neighbors[1].end(); ++it)
+                if (*it == i)
+                    dis[i] = 1;
+
+        for (int i = 1; i <= _point; ++i)
+            for (int j = 1; j <= _point; ++j)
+                for (auto it = neighbors[i].begin(); it != neighbors[i].end(); ++it)
+                    if (*it == j)
+                        if (dis[i] > dis[j] + 1)
+                            dis[i] = dis[j] + 1;
+
+        for (int i = 1; i <= _point; ++i)
+            cout << dis[i] << " ";
+        cout << endl;
+    }
+};

@@ -155,6 +155,3 @@ position: 0
 asdfuih
 - [current data field]acop
 ```
-## info
-
-16340247 席睿 软件工程教务三班
