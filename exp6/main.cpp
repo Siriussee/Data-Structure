@@ -10,10 +10,10 @@ int main()
 {
     cout << "enter data" << endl;
     Mgraph m;
-   // Lgraph l;
+    Lgraph l(m);
     bool isMatrixGraph;
-    cout << "Build graph via [M]atrix" << endl
-         << "Build graph via [L]ist" << endl
+    cout << "[M]atrix graph" << endl
+         << "[L]ist graph" << endl
          << "[B]FS" << endl
          << "[D]FS" << endl
          << "[S]hortest route" << endl
@@ -21,26 +21,41 @@ int main()
     string command;
     while (getline(cin, command))
     {
-        if (command[0] == 'M')
+        if (command == "M")
+        {
             isMatrixGraph = true;
-        if (command[0] == 'L')
+            cout << "Initializing a Matrix Graph..." << endl;
+        }
+        if (command == "L")
+        {
             isMatrixGraph = false;
-        if (command[0] == 'B')
+            cout << "Initializing a List Graph..." << endl;
+        }
+        if (command == "B")
+            cout << "BFS:" << endl;
+        {
             if (isMatrixGraph)
                 m.bfs();
             else
-        //        l.bfs();
-        if (command[0] == 'D')
+                l.bfs();
+        }
+        if (command == "D")
+        {
+            cout << "BFS:" << endl;
             if (isMatrixGraph)
                 m.dfs();
-            else
-        //        l.dfs();
-        if (command[0] == 'S')
+
+            //        l.dfs();
+        }
+        if (command == "S")
+        {
+            cout << "Shortest route from 1 to other:" << endl;
             if (isMatrixGraph)
                 m.sr();
-            else
-        //        l.sr();
-        if(command[0] == 'E')
+
+            //        l.sr();
+        }
+        if (command == "E")
             break;
     }
     return 0;
