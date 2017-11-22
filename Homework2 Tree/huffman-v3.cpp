@@ -21,7 +21,7 @@ struct Node
     }
     Node(Node *a, Node *b)
     {
-        ch = a->ch + b->ch;
+        ch = -1;
         weight = a->weight + b->weight;
         left = a;
         right = b;
@@ -31,7 +31,7 @@ struct Node
 //from big to small
 bool cmp(Node *a, Node *b)
 {
-    return a->weight > b->weight;
+    return a->weight >= b->weight;
 }
 
 //generate code of each node
@@ -112,9 +112,10 @@ int main()
         if (q.front()->right != NULL)
             q.push(q.front()->right);
         v.push_back(q.front());
+        //cout << q.front()->code << endl;
         q.pop();
     }
-
+/*
     //code for v1
     sort(v.begin(), v.end(), cmp);
 
@@ -124,7 +125,7 @@ int main()
             cout << char((*it)->ch + 'A') << " " << (*it)->weight << " "
                  << (*it)->code << endl;
     }
-/*
+*/
     //code for v3
     ss << str;
 
@@ -141,7 +142,7 @@ int main()
         }
     }
     cout << sum << endl;
-*/
+
     //system("pause");
     return 0;
 }

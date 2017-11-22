@@ -6,12 +6,13 @@ using namespace std;
 
 int n, m;
 bool path[1001][1001];
-bool visit[1001];
+int visit[1001];
 int main()
 {
     cin >> n >> m;
     memset(path, false, sizeof(path));
-    memset(visit, false, sizeof(visit));
+    memset(visit, -1, sizeof(visit));
+    visit[1] = 0;
     for (int i = 0; i < m; ++i)
     {
         int v,y;
@@ -31,10 +32,10 @@ int main()
             int temp = q.front();
             for (int j = 1; j <= n; ++j)
             {
-                if (path[temp][j] && !visit[j])
+                if (path[temp][j] && visit[j] == -1)
                 {
                     q.push(j);
-                    visit[temp] = dist;
+                    visit[j] = dist;
                 }
             }
             q.pop();
@@ -43,6 +44,6 @@ int main()
     for (int i = 1; i <= n; ++i)
         cout << visit[i] << " ";
     cout << endl;
-    system("pause");
+    //system("pause");
     return 0;
 }
