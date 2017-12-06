@@ -1,51 +1,48 @@
 #include <iostream>
-
 using namespace std;
-
-int arr[501][501];
-int dist[501];
-int main()
+int map[501][501];
+int lowcost[501];
+const int inf = 65536;
+int main() //shortest road algo
 {
-    int T;
-    cin >> T;
-    for (int i = 0; i < t; ++i)
+    int n;
+    int t;
+    cin >> t;
+    while (t--)
     {
-        int city;
-        cin >> city;
-        for (int i = 0; i < city; ++i)
+        cin >> n;
+        for (int i = 0; i < n; i++) //get distance
+            for (int j = 0; j < n; j++)
+                cin >> map[i][j];
+
+        for (int i = 0; i < n; i++)
+            lowcost[i] = map[0][i]; //init lowcost arr
+
+        int ans = 0;
+        for (int i = 0; i < n - 1; i++)
         {
-            for (int j = 0; j < city; ++j)
+            int mindis = inf;
+            int minone;
+            for (int j = 0; j < n; j++)
             {
-                cin >> arr[i][j];
+                if (lowcost[j] && mindis > lowcost[j])
+                {
+                    mindis = lowcost[j];
+                    minone = j;
+                }
+            }
+            if (ans < mindis)
+                ans = mindis;
+            lowcost[minone] = 0;
+            for (int j = 0; j < n; j++)
+            {
+                if (lowcost[j] > map[minone][j])
+                    lowcost[j] = map[minone][j];
             }
         }
-        for(int i = 0; i < city; ++i) 
-        {
-            dist[i] = sr(i);
-        }
+        cout << ans << endl;
+        if (t != 0)
+            cout << endl;
     }
-}
-
-void sr(int i)
-{
-    int dis[101];
-    for (int i = 0; i < 100; ++i)
-        dis[i] = 65535;
-    dis[1] = 0;
-
-    for (int i = 2; i <= _point; ++i)
-        for (auto it = neighbors[1].begin(); it != neighbors[1].end(); ++it)
-            if (*it == i)
-                dis[i] = 1;//not = 1 again
-
-    for (int i = 1; i <= _point; ++i)
-        for (int j = 1; j <= _point; ++j)
-            for (auto it = neighbors[i].begin(); it != neighbors[i].end(); ++it)
-                if (*it == j)
-                    if (dis[i] > dis[j] + 1)//not + 1 again
-                        dis[i] = dis[j] + 1;//not + 1 again
-    int sum = 0;
-    for (int i = 1; i <= _point; ++i)
-        sum += dis[i];
-    return sum;
+    return 0;
 }
