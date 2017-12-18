@@ -1,0 +1,80 @@
+13 20
+1
+jiyuanlou
+happy coding
+2
+north door
+paifang
+3
+parking lot
+parking bicycles
+4
+gov building
+eating and working
+5
+teaching building
+having class
+6
+library
+reading...
+7
+chuanshe
+strange shaped building?
+8
+stadium
+emmmm
+9
+real grass
+where we have pe class
+10
+industry building
+beautiful and big
+11
+fake grass
+joggiing
+12
+mail port
+where we get package
+13
+new live
+discussing
+1 2 247 1
+r1
+3 1 490 1
+r9
+2 4 313 1
+r2
+2 5 317 1
+r3
+8 3 525 1
+r8
+4 5 132 1
+r4
+4 6 233 1
+r5
+4 10 744 1
+r15
+5 6 167 0
+r6
+6 7 397 1
+r13
+6 8 219 1
+r7
+7 10 286 1
+r14
+11 7 224 1
+r12
+8 9 209 1
+r10
+8 11 298 0
+r11
+12 8 397 1
+r20 
+13 8 639 1
+r16
+13 10 816 0
+r18
+12 11 449 1
+r19
+13 12 535 1
+r17

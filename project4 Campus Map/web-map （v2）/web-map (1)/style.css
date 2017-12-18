@@ -1,0 +1,272 @@
+#map-pic{
+	position: relative;
+	margin: 0 auto;
+	background-image: url("lined.png");
+	height: 600px;
+	width: 1300px;
+	background-repeat:no-repeat;
+	top:10px;
+	left:27px;
+}
+
+#ctrl{
+	margin: 0 auto;
+	text-align: center;
+	position: relative;
+	/*top:20px;*/
+}
+input{
+	top: -10px;
+	height: 30px;
+	font-size: 16pt;
+	font-family: STKaiti;
+	font-weight: bold;
+}
+p{
+	height: 40px;
+	font-size: 18pt;
+	font-weight: bold;
+	font-family: STKaiti;
+}
+button{
+	font-weight: bold;
+	font-family: STKaiti;
+	font-size: 10pt;
+	height: 30px;
+}
+#query{
+	position: relative;
+	left: -20px;
+}
+#find-spot{
+	position: relative;
+	top: 40px;
+	left: -550px;
+}
+#start, #end{
+	position: relative;
+	left: 150px;
+}
+#find-path-people, #find-path-car{
+	position: relative;
+	top: 40px;
+	left: -180px;
+}
+.hide{
+	opacity: 0;
+}
+
+.auto{
+	opacity: 1;
+	background-color: green;
+	transition: 1s;
+
+}
+
+.walk{
+	opacity: 1;
+	background-color: blue;
+	transition: 1s;
+}
+
+/*kuaididian - tushuguan*/
+#R20{
+	position: absolute;
+	left:765px;
+	top:258px;
+
+	transform: rotate(58deg);	
+	width: 3px;
+	height: 190px;
+}
+/*jiacao - kuaididian*/
+#R19{
+	position: absolute;
+	left:622px;
+	top:340px;
+
+	transform: rotate(-35deg);	
+	width: 3px;
+	height: 66px;
+}
+/*gongxueyuan - xinhuo*/
+#R18{
+	position: absolute;
+	left:552px;
+	top: 220px;
+
+	transform: rotate(-68deg);	
+	width: 3px;
+	height: 410px;
+}
+/*kuaididian - xinhuo*/
+#R17{
+	position: absolute;
+	left:730px;
+	top: 405px;
+
+	transform: rotate(-55deg);	
+	width: 3px;
+	height: 120px;
+}
+
+/*tiyuguan - xinhuo*/
+#R16{
+	position: absolute;
+	left:832px;
+	top: 300px;
+
+	transform: rotate(14.5deg);	
+	width: 3px;
+	height: 200px;
+}
+/*xingzhenglou - gongxuanyuan*/
+#R15{
+	position: absolute;
+	left:552px;
+	top: 60px;
+
+	transform: rotate(64deg);	
+	width: 3px;
+	height: 370px;
+}
+/*gongxueyuan - chuanshelou*/
+#R14{
+	position: absolute;
+	left:491px;
+	top: 208px;
+
+	transform: rotate(73deg);
+	width: 3px;
+	height: 175px;
+}
+/*chuansheyuan - tushuguan*/
+#R13{
+	position: relative;
+	width: 3px;
+	height: 150px;
+	transform: rotate(79deg);
+	
+	left:740px;
+	top:170px;
+}
+/*jiacao - chuansheyuan*/
+#R12{
+	position: absolute;
+	left:612px;
+	top:274px;
+
+	transform: rotate(21deg);	
+	width: 3px;
+	height: 60px;
+}
+/*jiacao - tiyugaun*/
+#R11{
+	position: absolute;
+	width: 3px;
+	height: 190px;
+	
+	transform: rotate(77deg);
+	left: 720px;
+	top:220px;
+}
+/*tiyuguan - zhencao*/
+#R10{
+	position: absolute;
+	width: 3px;
+	height: 65px;
+
+	transform: rotate(82deg);
+	left:950px;
+	top:258px;
+}
+/*jiyuanlou - tingchepeng*/
+#R9{
+	position: absolute;
+	width: 3px;
+	height: 135px;
+
+	transform: rotate(-42deg);
+	left:1052px;
+	top:38px;
+}
+/*tingchepeng - tiyuguan*/
+#R8{
+	position: absolute;
+	width: 3px;
+	height: 225px;
+
+	transform: rotate(58deg);
+	left:1004px;
+	top:110px;
+}
+/*tushuguan - -tiyuguan*/
+#R7{
+	position: absolute;
+	width: 3px;
+	height: 50px;
+
+	transform: rotate(5deg);
+	left:863px;
+	top:235px;
+}
+/*gongjiaolou - tushuguan*/
+#R6{
+	position: absolute;
+	width: 3px;
+	height: 60px;
+
+	transform: rotate(51deg);
+	left:920px;
+	top:168px;
+}
+/*xingzhenglou - tushuguan*/
+#R5{
+	position: absolute;
+	width: 3px;
+	height: 70px;
+
+	transform: rotate(-35deg);
+	left:803px;
+	top:157px;
+}
+/*xingzhenglou - GONGJIAOLOU*/
+#R4{
+	position: absolute;
+	width: 3px;
+	height: 105px;
+
+	transform: rotate(-81deg);
+	left:870px;
+	top:110px;
+}
+/*gongjiaolou - beimen*/
+#R3{
+	position: absolute;
+	width: 3px;
+	height: 110px;
+
+	transform: rotate(-35deg);
+	left:907px;
+	top:55px;
+}
+/*beimeng - xingzhenglou*/
+#R2{
+	position: absolute;
+	width: 3px;
+	height: 90px;
+
+	transform: rotate(30deg);
+	left:813px;
+	top:57px;
+}
+/*jiyuanlou - beimen*/
+#R1{
+	position: absolute;
+	width: 3px;
+	height: 30px;
+
+	transform: rotate(75deg);
+	left:893px;
+	top:35px;
+}
