@@ -1,5 +1,22 @@
-# 实验报告#7 - 二叉树
+# 实验报告#7 - 哈希表的应用
+<!-- TOC -->
 
+- [实验报告#7 - 哈希表的应用](#实验报告7---哈希表的应用)
+    - [个人信息](#个人信息)
+    - [开发环境](#开发环境)
+    - [程序说明](#程序说明)
+        - [运行逻辑](#运行逻辑)
+        - [数据结构](#数据结构)
+        - [算法设计](#算法设计)
+    - [运行结果](#运行结果)
+
+<!-- /TOC -->
+
+## 个人信息
+
+姓名：席睿
+学号：16340247
+班级：软件工程教务三班
 
 ## 开发环境
 
@@ -73,6 +90,10 @@ for (int i = 0; i < 20; ++i)
 
 插入
 
+插入算法需要解决两种情况的插入：有冲突的和无冲突的。
+
+对于无冲突的情况来说，只需要将元素放入哈希表对应位置即可。在有冲突的情况下，则需要沿着链表向下插入。
+
 ```c++
 void insert_h(string n, string s, string i, string p)
 {
@@ -90,9 +111,172 @@ void insert_h(string n, string s, string i, string p)
 }
 ```
 
+删除
+
+删除算法与插入同理。
+
+如果删除的是链表的表头元素，需要考虑表内有没有元素两种情况。
+
+如果删除的是表内元素，则需要在表中查找。
+
+```c++
+int sum = hash(n);            //取得哈希值
+if (hashTable[sum]->name == name)   //删除表头元素
+{
+      node *curr = hashTable[sum];
+      if (curr->next == NULL)       //没有表内元素
+            hashTable[sum] = NULL;  //表头置NULL
+      else                          //有表内元素
+            hashTable[sum] = hashTable[sum]->next;//用下一个元素代替表头元素即可
+
+}
+else                                //删除表内元素
+{
+      node *curr = hashTable[sum];
+      while (curr->next != NULL) //查找表内
+      {
+            if (curr->next->name == name) //找到了
+            {
+                  node *to_be_del = curr->next; //将前一个元素的next指向下一个元素
+                  curr->next = to_be_del->next;
+                  delete to_be_del;             //删除当前元素
+                  break;
+            }
+            curr = curr->next;            //没找到，继续寻找表的下一个元素
+      }
+}
+```
+
+查找
+
+与删除类似，只是删除操作改成了输出操作。
+
+```c++
+int sum = hash(n);            //取得哈希值
+if (hashTable[sum]->name == name) //查找表头
+      print(hashTable[sum]);
+else
+{
+      node *curr = hashTable[sum];
+      while (curr->next != NULL) //查找表内
+      {
+            if (curr->next->name == name) //找到了
+            {
+                  print(curr->next);
+                  break;
+            }
+            curr = curr->next;            //没找到，继续寻找表的下一个元素
+      }
+}
+```
 
 ## 运行结果
 
 ```c++
+//菜单
+------ Address App -------
+[s]how
+[f]ind
+[i]nsert
+[d]elete
+[q]uit
+------ Address App -------
 
+```
+
+```c++
+//显示全部人员
+>>s
+--------------- Address -------------------
+name            sex             studentID               phone
+test4           male            1633450123              131234567890
+test5           female          16340123                131234567890
+test16          male            16340123                131234567890*
+test66          female          16340112                131234567890
+deled           female          16340112                131234567890
+test89          female          16340123                131234567890
+tes181          male            16340123                131234567890
+test0           female          16340123                131234567890
+test1           male            16340123                131234567890
+test12          male            16340123                131234567890*
+test2           male            16367sdf83              131234567890
+test13          female          16340112                131234567890*
+test3           female          1634540123              131234567890
+test14          male            1634234123              131234567890*
+--------------- end of address -------------------
+```
+
+```c++
+//查找成功/失败
+>>f
+--------- find --------------
+name: test14
+name            sex             studentID               phone
+test14          male            1634234123              131234567890
+--------- found --------------
+>>f
+--------- find --------------
+name: null
+--------- not found ----------
+```
+
+```c++
+//插入成功/空用户名/重名
+>>i
+--------- insert --------------
+name: notempty
+sex: male
+id: 16230453
+phone: 13492247571
+--------- insert success -------------
+>>f
+--------- find --------------
+name: notempty
+name            sex             studentID               phone
+notempty        male            16230453                13492247571
+--------- found --------------
+>>i
+--------- insert --------------
+name:
+name cannot be empty
+--------- insert fail -------------
+>>i
+--------- insert --------------
+name: test4
+name            sex             studentID               phone
+test4           male            1633450123              131234567890
+name used
+--------- insert fail -------------
+
+```
+
+```c++
+//删除成功/失败
+>>d
+--------- delete --------------
+name: test4
+--------- delete success--------------
+>>d
+--------- delete --------------
+name: test4
+--------- delete fail--------------
+>>s
+--------------- Address -------------------
+name            sex             studentID               phone
+test5           female          16340123                131234567890
+test16          male            16340123                131234567890*
+test66          female          16340112                131234567890
+deled           female          16340112                131234567890
+test89          female          16340123                131234567890
+tes181          male            16340123                131234567890
+test0           female          16340123                131234567890
+notempty        male            16230453                13492247571*
+test1           male            16340123                131234567890
+test12          male            16340123                131234567890*
+test2           male            16367sdf83              131234567890
+test13          female          16340112                131234567890*
+test3           female          1634540123              131234567890
+test14          male            1634234123              131234567890*
+--------------- end of address -------------------
+>>q
 ```

@@ -98,11 +98,11 @@ class Address
         insert_h("test13", "female", "16340112", "131234567890");
         insert_h("test14", "male", "1634234123", "131234567890");
         insert_h("test0", "female", "16340123", "131234567890");
-        insert_h("test16666", "male", "16340123", "131234567890");
-        insert_h("test6546", "female", "16340112", "131234567890");
-        insert_h("test87999", "female", "16340123", "131234567890");
-        insert_h("test181", "male", "16340123", "131234567890");
-        insert_h("deleted", "female", "16340112", "131234567890");
+        insert_h("test16", "male", "16340123", "131234567890");
+        insert_h("test66", "female", "16340112", "131234567890");
+        insert_h("test89", "female", "16340123", "131234567890");
+        insert_h("tes181", "male", "16340123", "131234567890");
+        insert_h("deled", "female", "16340112", "131234567890");
     }
 
     void show()
